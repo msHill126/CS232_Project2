@@ -9,7 +9,7 @@ do
     	url="https://users.pfw.edu/chenz/testWeb/page_0000${i}.html"
     fi
 
-    ./indexPage ${url} > test${i}Output.txt
+    ./indexPage.exe ${url} > test${i}Output.txt
     ./solution ${url} > test${i}CorrectOutput.txt
 
     diff -q test${i}CorrectOutput.txt test${i}Output.txt > /dev/null

@@ -17,7 +17,9 @@
 
 // this may look strange, but it allows us to refer to the struct as simply 'trieNode' instead of 'struct trieNode'
 // we can totally talk about what this struct should look like, but this is what made sense to me. If you've got another idea you prefer, we can totally do that.
-typedef struct 
+typedef struct trieNode trieNode;
+
+struct trieNode 
 {
     trieNode* children[26];     // we are only dealing with lower-case alphabetical elements, so we can use a definite sized buffer.
                                 // this also allows us to represent the links between nodes without specifying the character.
@@ -28,7 +30,7 @@ typedef struct
 
     unsigned int visits;        // the number of times that visitNode has been called with the name of this trieNode.
 
-} trieNode;
+};
 
 
 // note: this just has the functions that the main file needs to use. (We can totally discuss whether these are the functions we want to be here, 

@@ -7,8 +7,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "trie.c"
 
-/* TODO: structure definitions */
+
 
 
 /* NOTE: int return values can be used to indicate errors (typically non-zero)
