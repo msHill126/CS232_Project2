@@ -4,11 +4,12 @@
 
 /* This program indexes a web page, printing out the counts of words on that page */
 
+#ifndef PUBLISHED
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include "trie.c"
-
+#endif
 
 
 

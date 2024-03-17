@@ -14,6 +14,8 @@
 #define TRIE_H  // I think we can access it from C code though. it's a constant though. not sure what it's value would be, but it doesn't really matter.
 
 #include <stdio.h>
+#include <stdio.h>
+#include <string.h>
 
 // this may look strange, but it allows us to refer to the struct as simply 'trieNode' instead of 'struct trieNode'
 // we can totally talk about what this struct should look like, but this is what made sense to me. If you've got another idea you prefer, we can totally do that.
