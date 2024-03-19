@@ -17,7 +17,7 @@
 #include <stdio.h>
 #include <string.h>
 
-// this may look strange, but it allows us to refer to the struct as simply 'trieNode' instead of 'struct trieNode'
+// this allows us to refer to the struct as simply 'trieNode' instead of 'struct trieNode'
 // we can totally talk about what this struct should look like, but this is what made sense to me. If you've got another idea you prefer, we can totally do that.
 typedef struct trieNode trieNode;
 
@@ -35,13 +35,11 @@ struct trieNode
 };
 
 
-// note: this just has the functions that the main file needs to use. (We can totally discuss whether these are the functions we want to be here, 
-// but this is just what I thought was a good idea)
+// note: this just has the functions that the main file needs to use. We can totally discuss whether these are the functions we want to be here, 
+// but this is just what I thought was a good idea.
 // if you see any flaws with anything, point them out! I'd rather not waste time writing functions that are pointless or don't make sense or whatever.
 // You can definitely create more functions to break up tasks into smaller pieces in trie.c, though, if the main file won't need to use them directly.
 // if you do, you should make these functions static, which in C, makes functions 'private' to a particular source file. 
-// This allows for a form of encapsulation, and I don't know about you, but I think that's a pretty good thing.
-
 
 
 

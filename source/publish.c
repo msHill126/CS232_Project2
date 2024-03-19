@@ -3,7 +3,9 @@
 
 /*
     CS 232 - Project 2
-    Mason Hill and xxx
+    Professor Jonathan Rusert 
+    Mason Hill and Tyler Hall
+    April 4 2024
 */
 
 #define PUBLISHED
