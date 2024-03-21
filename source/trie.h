@@ -6,10 +6,6 @@
 // this means this file will be included multiple times. the compiler doesn't like this, so there's a common
 // set of preprocessor directives called the 'include guard' that prevents the contents of the header from being included more than once.
 
-
-// note: Unfortunately the project pdf says we're supposed to have all of our work on a single file, but we can just make a copy of indexPage.c and 'manually include' this file and trie.c
-// of course, by that I mean copy-pasting - and that mess of a file we can turn in
-
 #ifndef TRIE_H  // TRIE_H is just a name we're making up. It doesn't matter, so long as it's unique.
 #define TRIE_H  // I think we can access it from C code though. it's a constant though. not sure what it's value would be, but it doesn't really matter.
 
