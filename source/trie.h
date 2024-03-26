@@ -17,13 +17,15 @@
 #include <stdio.h>
 #include <string.h>
 
+
+#define children_count 26
 // this allows us to refer to the struct as simply 'trieNode' instead of 'struct trieNode'
 // we can totally talk about what this struct should look like, but this is what made sense to me. If you've got another idea you prefer, we can totally do that.
 typedef struct trieNode trieNode;
 
 struct trieNode 
 {
-    trieNode* children[26];     // we are only dealing with lower-case alphabetical elements, so we can use a definite sized buffer.
+    trieNode* children[children_count];     // we are only dealing with lower-case alphabetical elements, so we can use a definite sized buffer.
                                 // this also allows us to represent the links between nodes without specifying the character.
                                 // we can get the character prefix of a node by adding 'a' to it's index within its parent.
                                 // note that each element in the array should be set to NULL when a trieNode is initialized.
@@ -72,6 +74,7 @@ char* getKeyOfNode(trieNode* node);
 // getNode would return node on this string.
 // this function requires a trieNode to know it's parent. If we decide to remove that from the struct,
 // then code to print the trie becomes more complicated, and this function ceases to be.
+// this string must be freed if used.
 
 
 void printTrie(FILE* stream, trieNode* root);
