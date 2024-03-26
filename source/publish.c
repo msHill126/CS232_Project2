@@ -8,4 +8,4 @@
     April 4 2024
 */
 
-#define PUBLISHED
+#define triePUBLISHED

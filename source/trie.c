@@ -1,4 +1,4 @@
-#ifndef PUBLISHED     // the project requirements state that the entire program must be in a single source doc.
+#ifndef triePUBLISHED     // the project requirements state that the entire program must be in a single source doc.
                       // I have setup a makefile target to concatenate all of the source files into a single file for this purpose.
                       // there's no need to have multiple includes in such a file, so they will not be included
 #include <stdlib.h>
@@ -8,11 +8,6 @@
 #endif
 
 // function definitions (as outlined in the header) go here.    
-
-trieNode* visitNode(char* key, trieNode* root)
-{
-
-}
 
 
 // frees a node and all of its children.
@@ -58,6 +53,27 @@ void printTrie(FILE* stream, trieNode* root)
     }
 }
 
+
+static char getCharOfNode(trieNode* node)
+{
+    if(node->parent == NULL)
+    {
+        return '\0';
+    }
+
+    for(int i = 0; i<children_count; i++)
+    {
+        if(node->parent->children[i]==node)
+        {
+          return 'a'+i;
+        }
+
+    }
+
+    fprintf(stderr, "Couldn't get the character of a node. this indicates the trie is broken.\n");
+    exit(1);
+}
+
 // returns a null terminated string of lower-case alpheberic characters such that
 // getNode would return node on this string.
 // this function requires a trieNode to know it's parent. If we decide to remove that from the struct,
@@ -96,6 +112,8 @@ char* getKeyOfNode(trieNode* node)
         }
     }
 
+
+
     // now, reverse the string.
     char* toReturn = malloc(sizeof(char)*size);
     if(toReturn == NULL)
@@ -118,25 +136,7 @@ char* getKeyOfNode(trieNode* node)
 
 }
 
-static char getCharOfNode(trieNode* node)
-{
-    if(node->parent == NULL)
-    {
-        return '\0';
-    }
 
-    for(int i = 0; i<children_count; i++)
-    {
-        if(node->parent->children[i]==node)
-        {
-          return 'a'+i;
-        }
-
-    }
-
-    fprintf(stderr, "Couldn't get the character of a node. this indicates the trie is broken.\n");
-    exit(1);
-}
 
 
 // gets an existing node without modifying the trie.
@@ -159,23 +159,6 @@ trieNode* getNode(char* key, trieNode* root)
     return getNode(key++, next);
 }
 
-// find or create a trieNode with a particular name, key, and increment its visits member by one.
-// key is a null termimnated string and should consist of only lower-case alphabetic characters.
-// returns a pointer to the node on success, or NULL on failure.
-// may create one or more nodes (with malloc) if key does not represent an existing node.
-// In this case, the only new node whose name matches key will have a nonzero visits member. Its value will be 1.
-// nodes that are created should should be freed with freeNode when they are no longer needed.
-trieNode* visitNode(char* key, trieNode* root)
-{
-    trieNode* found = getNode(key, root);
-    if(found!=NULL)
-    {
-        found->visits++;
-        return found;
-    }
-
-    return getOrCreateNode(key, root);
-}
 
 static trieNode* getOrCreateNode(char* key, trieNode* root)
 {
@@ -206,3 +189,23 @@ static trieNode* getOrCreateNode(char* key, trieNode* root)
 
     return getNode(key++, next);
 }
+
+
+// find or create a trieNode with a particular name, key, and increment its visits member by one.
+// key is a null termimnated string and should consist of only lower-case alphabetic characters.
+// returns a pointer to the node on success, or NULL on failure.
+// may create one or more nodes (with malloc) if key does not represent an existing node.
+// In this case, the only new node whose name matches key will have a nonzero visits member. Its value will be 1.
+// nodes that are created should should be freed with freeNode when they are no longer needed.
+trieNode* visitNode(char* key, trieNode* root)
+{
+    trieNode* found = getNode(key, root);
+    if(found!=NULL)
+    {
+        found->visits++;
+        return found;
+    }
+
+    return getOrCreateNode(key, root);
+}
+

@@ -12,6 +12,9 @@ publish-win:
 	type source\publish.c source\trie.h source\main.c source\trie.c > indexPage.c
 	gcc indexPage.c $(gccFlags)
 
+testing:
+	gcc source/trieTesting.c source/trie.c $(gccFlags)
+
 clean:
 	rm indexPage.c
 
