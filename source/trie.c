@@ -155,7 +155,7 @@ trieNode* getNode(char* key, trieNode* root)
         return NULL;
     }
 
-    return getNode(key++, next);
+    return getNode(++key, next);
 }
 
 static trieNode* newNode(char link, trieNode* parent)

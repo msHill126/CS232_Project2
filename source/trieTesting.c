@@ -26,7 +26,7 @@ int main(void)
 {
     char* newstr = malloc(sizeof(char)*strlen(sring)+1);
     newstr = strncpy(newstr, sring, strlen(sring)+1);
-
+    char* toFree = newstr;
     printf("Start!\n");
     // initialize trie.
     trieNode* trie = malloc(sizeof(trieNode));
@@ -54,8 +54,19 @@ int main(void)
     printf("\n\nPrinting...\n");
     printTrie(stdout, trie);
 
-    printf("visits for is: %d\n", getNode("is", trie)->visits);
+    trieNode* node = getNode("is", trie);
+    if(node != NULL)
+    {
+         printf("visits for is: %d\n", node->visits);
+    }
+    else
+    {
+
+        printf("node 'is' not found...\n");
+    }
+   
     freeNode(trie);
+    free(toFree);
     return 0;
 
 }
