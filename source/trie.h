@@ -70,7 +70,7 @@ char* getKeyOfNode(trieNode* node);
 // getNode would return node on this string.
 // this function requires a trieNode to know it's parent. If we decide to remove that from the struct,
 // then code to print the trie becomes more complicated, and this function ceases to be.
-// this string must be freed if used.
+// this string should be freed.
 
 
 void printTrie(FILE* stream, trieNode* root);

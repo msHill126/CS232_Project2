@@ -16,6 +16,11 @@
 // probably the only time this will be called is to free the root node, freeing the entire Trie.
 void freeNode(trieNode* node)
 {
+    if(node == NULL)
+    {
+        return;
+    }
+
     for(int i = 0; i<children_count; i++)
     {
         if(node->children[i]!=NULL)
@@ -74,6 +79,29 @@ static char getCharOfNode(trieNode* node)
     exit(1);
 }
 
+
+// note: strlength should be the number of characters (not including the null character) of the string to be reversed.
+static char* reverseString(char* reversed, int bufferSize, int strlength)
+{
+    char* toReturn = malloc(sizeof(char)*bufferSize);
+    if(toReturn == NULL)
+    {
+        fprintf(stderr, "Malloc failed in getKeyOfNode...\n");
+        exit(1);
+    }
+    
+    int lastIndex = strlength;
+    toReturn[lastIndex]='\0';
+    lastIndex--;
+
+    for(int i=0; i<lastIndex+1; i++)
+    {
+        toReturn[i] = reversed[lastIndex-i];
+    }
+
+    return toReturn;
+   
+}
 // returns a null terminated string of lower-case alpheberic characters such that
 // getNode would return node on this string.
 // this function requires a trieNode to know it's parent. If we decide to remove that from the struct,
@@ -81,6 +109,8 @@ static char getCharOfNode(trieNode* node)
 // this string must be freed if used.
 char* getKeyOfNode(trieNode* node)
 {
+
+    // this deserves refactoring, could be like 2 different functions.
     const int sizeIncrement = 100;
     int size = 100;
     int remaining = size;
@@ -99,37 +129,23 @@ char* getKeyOfNode(trieNode* node)
         remaining--;
         node = node->parent;
 
-        if(remaining == 0)
+        if(remaining != 0) continue;
+
+        // reallocate the string buffer to accomidate a longer key.
+        size += sizeIncrement;
+        remaining +=sizeIncrement;
+        reversed = realloc(reversed, sizeof(char)*size);
+       
+        if(reversed == NULL)
         {
-            size += sizeIncrement;
-            remaining +=sizeIncrement;
-            reversed = realloc(reversed, sizeof(char)*size);
-            if(reversed == NULL)
-            {
-                fprintf(stderr, "Realloc failed in getKeyOfNode...\n");
-                exit(1);
-            }
+            fprintf(stderr, "Realloc failed in getKeyOfNode...\n");
+            exit(1);
         }
+        
     }
 
 
-    // now, reverse the string.
-    char* toReturn = malloc(sizeof(char)*size);
-    if(toReturn == NULL)
-    {
-        fprintf(stderr, "Malloc failed in getKeyOfNode...\n");
-        exit(1);
-    }
-    
-    int lastIndex = size-remaining-1;
-    toReturn[lastIndex]='\0';
-    lastIndex--;
-
-    for(int i=0; i<lastIndex+1; i++)
-    {
-        toReturn[i] = reversed[lastIndex-i];
-    }
-
+    char* toReturn = reverseString(reversed, size, size-remaining-1);
     free(reversed);
     return toReturn;
 
@@ -144,57 +160,54 @@ char* getKeyOfNode(trieNode* node)
 // if key is an empty string, the function returns root.
 trieNode* getNode(char* key, trieNode* root)
 {
-    if(*key=='\0')
-    {
-        return root;
-    }
-
+    // this is kinda gross, but I like that it's only four lines
+    // getOrCreateNode is almost exactly the same thing, but more readable.
+    if(*key=='\0') return root;
     trieNode* next = root->children[(*key)-'a'];
-    if(next==NULL)
-    {
-        return NULL;
-    }
-
+    if(next==NULL) return NULL;
     return getNode(++key, next);
+
 }
 
 static trieNode* newNode(char link, trieNode* parent)
 {
     // create new node.
     trieNode* next = malloc(sizeof(trieNode));
+
     if(next==NULL)
     {
-            fprintf(stderr, "Malloc failed in newNode...\n");
-            exit(1);
+        fprintf(stderr, "Malloc failed in newNode...\n");
+        exit(1);
     }
+
     next->parent = parent;
     next->visits = 0;
+    parent->children[link - 'a'] = next;
+
+    // initialize child pointers.
     for(int i = 0; i<children_count; i++)
     {
         next->children[i]=NULL;
     }
 
-    parent->children[link-'a']=next;
     return next;
 }
 
 static trieNode* getOrCreateNode(char* key, trieNode* root)
 {
-    //printf("Parsing... '%s'\n", key);
+
     if(*key=='\0')
     {
-        return root;
+         return root;
     }
 
     trieNode* next =root->children[(*key)-'a'];
+
+    // create a new node if one is not available.
     if(next==NULL)
-    { 
+    {
         next = newNode(*key, root);
-        if(strlen(key)==1)
-        {
-            return next;
-        }
-    }
+    } 
 
     return getOrCreateNode(++key, next);
 }
@@ -208,15 +221,7 @@ static trieNode* getOrCreateNode(char* key, trieNode* root)
 // nodes that are created should should be freed with freeNode when they are no longer needed.
 trieNode* visitNode(char* key, trieNode* root)
 {
-  
-    trieNode* found = getNode(key, root);
-    if(found!=NULL)
-    {
-        found->visits++;
-        return found;
-    }
-
-    found = getOrCreateNode(key, root);
+    trieNode* found = getOrCreateNode(key, root);
     found->visits++;
     return found;
 }
