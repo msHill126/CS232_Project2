@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "trie.c"
+#include "trie.h"
 #endif
 
 

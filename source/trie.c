@@ -113,7 +113,6 @@ char* getKeyOfNode(trieNode* node)
     }
 
 
-
     // now, reverse the string.
     char* toReturn = malloc(sizeof(char)*size);
     if(toReturn == NULL)
@@ -122,7 +121,7 @@ char* getKeyOfNode(trieNode* node)
         exit(1);
     }
     
-    int lastIndex = size-remaining;
+    int lastIndex = size-remaining-1;
     toReturn[lastIndex]='\0';
     lastIndex--;
 
@@ -156,38 +155,48 @@ trieNode* getNode(char* key, trieNode* root)
         return NULL;
     }
 
-    return getNode(key++, next);
+    return getNode(++key, next);
 }
 
+static trieNode* newNode(char link, trieNode* parent)
+{
+    // create new node.
+    trieNode* next = malloc(sizeof(trieNode));
+    if(next==NULL)
+    {
+            fprintf(stderr, "Malloc failed in newNode...\n");
+            exit(1);
+    }
+    next->parent = parent;
+    next->visits = 0;
+    for(int i = 0; i<children_count; i++)
+    {
+        next->children[i]=NULL;
+    }
+
+    parent->children[link-'a']=next;
+    return next;
+}
 
 static trieNode* getOrCreateNode(char* key, trieNode* root)
 {
-    
+    //printf("Parsing... '%s'\n", key);
     if(*key=='\0')
     {
         return root;
     }
 
-    trieNode* next = root->children[(*key)-'a'];
+    trieNode* next =root->children[(*key)-'a'];
     if(next==NULL)
-    {
-        // create new node.
-        next = malloc(sizeof(trieNode));
-        if(next==NULL)
+    { 
+        next = newNode(*key, root);
+        if(strlen(key)==1)
         {
-             fprintf(stderr, "Malloc failed in getOrCreateNode...\n");
-             exit(1);
+            return next;
         }
-        next->parent = root;
-        next->visits = 1;
-        for(int i = 0; i<children_count; i++)
-        {
-            next->children[i]=NULL;
-        }
-        return next;
     }
 
-    return getNode(key++, next);
+    return getOrCreateNode(++key, next);
 }
 
 
@@ -199,6 +208,7 @@ static trieNode* getOrCreateNode(char* key, trieNode* root)
 // nodes that are created should should be freed with freeNode when they are no longer needed.
 trieNode* visitNode(char* key, trieNode* root)
 {
+  
     trieNode* found = getNode(key, root);
     if(found!=NULL)
     {
@@ -206,6 +216,8 @@ trieNode* visitNode(char* key, trieNode* root)
         return found;
     }
 
-    return getOrCreateNode(key, root);
+    found = getOrCreateNode(key, root);
+    found->visits++;
+    return found;
 }
 
