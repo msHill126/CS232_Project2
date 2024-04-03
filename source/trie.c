@@ -39,7 +39,7 @@ void freeNode(trieNode* node)
 // can be invoked 'printTrie(stdout, root_name)' for printing to console.
 // should only print notes with nonzero visits.
 // nodes should be displayed in the form 'key: visits'
-void printTrie(FILE* stream, trieNode* root)
+void printTrie(FILE* stream, const trieNode* root)
 {
     if(root->visits)
     {
@@ -59,7 +59,7 @@ void printTrie(FILE* stream, trieNode* root)
 }
 
 
-static char getCharOfNode(trieNode* node)
+static char getCharOfNode(const trieNode* node)
 {
     if(node->parent == NULL)
     {
@@ -107,7 +107,7 @@ static char* reverseString(char* reversed, int bufferSize, int strlength)
 // this function requires a trieNode to know it's parent. If we decide to remove that from the struct,
 // then code to print the trie becomes more complicated, and this function ceases to be.
 // this string must be freed if used.
-char* getKeyOfNode(trieNode* node)
+char* getKeyOfNode(const trieNode* node)
 {
 
     // this deserves refactoring, could be like 2 different functions.
@@ -158,10 +158,10 @@ char* getKeyOfNode(trieNode* node)
 // key is a null termimnated string and should consist of only lower-case alphabetic characters.
 // returns a pointer to the node if it exists. Otherwise returns NULL.
 // if key is an empty string, the function returns root.
-trieNode* getNode(char* key, trieNode* root)
+trieNode* getNode(const char* key, trieNode* root)
 {
     // this is kinda gross, but I like that it's only four lines
-    // getOrCreateNode is almost exactly the same thing, but more readable.
+    // getOrCreateNode is almost exactly the same thing, but more rea
     if(*key=='\0') return root;
     trieNode* next = root->children[(*key)-'a'];
     if(next==NULL) return NULL;
@@ -193,7 +193,7 @@ static trieNode* newNode(char link, trieNode* parent)
     return next;
 }
 
-static trieNode* getOrCreateNode(char* key, trieNode* root)
+static trieNode* getOrCreateNode(const char* key,  trieNode* root)
 {
 
     if(*key=='\0')
@@ -219,7 +219,7 @@ static trieNode* getOrCreateNode(char* key, trieNode* root)
 // may create one or more nodes (with malloc) if key does not represent an existing node.
 // In this case, the only new node whose name matches key will have a nonzero visits member. Its value will be 1.
 // nodes that are created should should be freed with freeNode when they are no longer needed.
-trieNode* visitNode(char* key, trieNode* root)
+trieNode* visitNode(const char* key, trieNode* root)
 {
     trieNode* found = getOrCreateNode(key, root);
     found->visits++;
