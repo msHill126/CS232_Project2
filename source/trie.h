@@ -42,7 +42,7 @@ struct trieNode
 
 
 
-trieNode* visitNode(char* key, trieNode* root);
+trieNode* visitNode(const char* key, trieNode* root);
 // find or create a trieNode with a particular name, key, and increment its visits member by one.
 // key is a null termimnated string and should consist of only lower-case alphabetic characters.
 // returns a pointer to the node on success, or NULL on failure.
@@ -51,7 +51,7 @@ trieNode* visitNode(char* key, trieNode* root);
 // nodes that are created should should be freed with freeNode when they are no longer needed.
 
 
-trieNode* getNode(char* key, trieNode* root);
+trieNode* getNode(const char* key, trieNode* root);
 // gets an existing node without modifying the trie.
 // key is a null termimnated string and should consist of only lower-case alphabetic characters.
 // returns a pointer to the node if it exists. Otherwise returns NULL.
@@ -65,7 +65,7 @@ void freeNode(trieNode* node);
 // probably the only time this will be called is to free the root node, freeing the entire Trie.
 
 
-char* getKeyOfNode(trieNode* node);
+char* getKeyOfNode(const trieNode* node);
 // returns a null terminated string of lower-case alpheberic characters such that
 // getNode would return node on this string.
 // this function requires a trieNode to know it's parent. If we decide to remove that from the struct,
@@ -73,7 +73,7 @@ char* getKeyOfNode(trieNode* node);
 // this string should be freed.
 
 
-void printTrie(FILE* stream, trieNode* root);
+void printTrie(FILE* stream, const trieNode* root);
 // prints a node and all of it's children to stream.
 // you can use fprintf to implement this
 // can be invoked 'printTrie(stdout, root_name)' for printing to console.
