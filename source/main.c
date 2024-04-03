@@ -91,6 +91,7 @@ trieNode* indexPage(const char* url) {
     while (word != NULL) {
         // Clean the word and convert it to lowercase
         char* cleanWord = malloc(strlen(word) + 1);
+        printf("\t%s\n", cleanWord);
         if (cleanWord == NULL) {
             fprintf(stderr, "Memory allocation failed for cleanWord\n");
             freeNode(root); // Free allocated memory before returning
