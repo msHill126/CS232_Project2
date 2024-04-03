@@ -114,7 +114,7 @@ trieNode* indexPage(const char* url) {
         free(cleanWord);
 
         // next word
-        word = strtok(NULL, " \t\n\r.,;:!?'\"()[]{}0123456789");
+        word = strtok(NULL, " \t\n\r.,;:!?'\"()[]{}_-0123456789");
     }
 
     return root; // Return the root node of the trie
