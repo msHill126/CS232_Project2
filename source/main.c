@@ -63,7 +63,7 @@ indexPage function:
 
 trieNode* indexPage(const char* url) {
 
-
+    printf("%s", url);
     // Store only first 300000 char 
     char buffer[300001]; // +1 for null terminator
 
@@ -91,7 +91,7 @@ trieNode* indexPage(const char* url) {
     while (word != NULL) {
         // Clean the word and convert it to lowercase
         char* cleanWord = malloc(strlen(word) + 1);
-        printf("\t%s\n", cleanWord);
+       
         if (cleanWord == NULL) {
             fprintf(stderr, "Memory allocation failed for cleanWord\n");
             freeNode(root); // Free allocated memory before returning
@@ -104,6 +104,8 @@ trieNode* indexPage(const char* url) {
             }
         }
         cleanWord[j] = '\0';
+        printf("\t%s\n", cleanWord);
+
 
         // add the clean word to the trie
         addWordOccurrence(cleanWord, strlen(cleanWord), root);
