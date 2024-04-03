@@ -1,5 +1,5 @@
 
-gccFlags = -Wall -g -o indexPage.exe
+gccFlags = -Wall -g -o indexPage.exe -std=gnu11
 
 make:
 	gcc source/main.c source/trie.c $(gccFlags)
