@@ -1,6 +1,6 @@
 /* File: indexPage.c */
-/* Author: Britton Wolfe */
-/* Date: September 3rd, 2010 */
+/* Author: Tyler Hall, Mason Hill*/
+/* Date: April 4, 2023 */
 
 /* This program indexes a web page, printing out the counts of words on that page */
 
@@ -47,19 +47,6 @@ int main(int argc, char** argv) {
 }
 
 
-/* TODO: define the functions corresponding to the above prototypes */
-
-
-/*
-indexPage function:
--struct node *indexPage(const char *url);
--get the content of a page(getText());	//if zero there is no content
--create a root node
--analyze the content(loop)
-	.find a word		//calculate_sum.c
-	.addWordOccurrence(...); //recursive 
--return to root
-*/
 
 trieNode* indexPage(const char* url) {
 
