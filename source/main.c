@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "trie.h"
+#include <ctype.h>
 #endif
 
 
@@ -16,9 +17,9 @@
 /* NOTE: int return values can be used to indicate errors (typically non-zero)
    or success (typically zero return value) */
 
-char* indexPage(const char* url);
+trieNode* indexPage(const char* url);
 
-int addWordOccurrence(const char* word, const int wordLength);
+int addWordOccurrence(const char* word, const int wordLength, trieNode* root);
 
 int getText(const char* srcAddr, char* buffer, const int bufSize);
 
@@ -37,10 +38,10 @@ int main(int argc, char** argv) {
     }
 
     // Call a function that prints out the counts of all the words in the trie
-    printTrieContents(root);
+    printTrie(FILE* stream, trieNode* root);
 
     // Call a function to destroy the trie (i.e., free any allocated memory) when it is no longer needed
-    freeTrieMemory(root);
+    freeNode(trieNode* node);
 
     return 0; // Return zero to indicate success
 }
