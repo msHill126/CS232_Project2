@@ -38,10 +38,10 @@ int main(int argc, char** argv) {
     }
 
     // Call a function that prints out the counts of all the words in the trie
-    printTrie(FILE* stream, trieNode* root);
+    printTrie(stdout, root);
 
     // Call a function to destroy the trie (i.e., free any allocated memory) when it is no longer needed
-    freeNode(trieNode* node);
+    freeNode(root);
 
     return 0; // Return zero to indicate success
 }
