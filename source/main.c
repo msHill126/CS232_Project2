@@ -20,10 +20,6 @@ char* indexPage(const char* url);
 
 int addWordOccurrence(const char* word, const int wordLength);
 
-void printTrieContents(trieNode *root);
-
-int freeTrieMemory(trieNode* root);
-
 int getText(const char* srcAddr, char* buffer, const int bufSize);
 
 int main(int argc, char** argv) {
@@ -130,37 +126,10 @@ int addWordOccurrence(const char* word, const int wordLength, trieNode* root){
 
     // Add the word to the trie
     trieNode* node = visitNode(word, root);
-    if (node != NULL) {
-        node->visits++;
-        return 1; // pass
-    } else {
-        return 0; // fail
-    }
+
+
 }
 
-
-
-void printTrieContents(trieNode* root){
-  
-  if(root != NULL){
-    printTrie(stdout, root);
-  }
-  
-  else
-  return 0;
-  
-}
-
-int freeTrieMemory(trieNode* root ){
-  
-  if(root != NULL){
-  freeNode(root);
-  }
-
-  else
-  return 0;
-
-}
 
 /* You should not need to modify this function */
 int getText(const char* srcAddr, char* buffer, const int bufSize){
