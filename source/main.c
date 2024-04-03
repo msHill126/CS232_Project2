@@ -63,7 +63,7 @@ indexPage function:
 
 trieNode* indexPage(const char* url) {
 
-    printf("%s:\n", url);
+    printf("%s\n", url);
     // Store only first 300000 char 
     char buffer[300001]; // +1 for null terminator
 
