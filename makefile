@@ -4,11 +4,11 @@ gccFlags = -Wall -g -o indexPage.exe
 make:
 	gcc source/main.c source/trie.c $(gccFlags)
 
-publish: clean
+publish: 
 	cat source/publish.c source/trie.h source/main.c source/trie.c> indexPage.c
 	gcc indexPage.c $(gccFlags)
 
-publish-win: clean
+publish-win:
 	type source\publish.c source\trie.h source\main.c source\trie.c > indexPage.c
 	gcc indexPage.c $(gccFlags)
 
