@@ -93,7 +93,7 @@ trieNode* indexPage(const char* url) {
         char* cleanWord = malloc(strlen(word) + 1);
         if (cleanWord == NULL) {
             fprintf(stderr, "Memory allocation failed for cleanWord\n");
-            freeTrieMemory(root); // Free allocated memory before returning
+            freeNode(root); // Free allocated memory before returning
             return NULL;
         }
         int j = 0;
@@ -126,8 +126,9 @@ int addWordOccurrence(const char* word, const int wordLength, trieNode* root){
     }
 
     // Add the word to the trie
-    trieNode* node = visitNode(word, root);
+    visitNode(word, root);
 
+    return 1;
 
 }
 
