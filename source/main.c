@@ -87,7 +87,7 @@ trieNode* indexPage(const char* url) {
     }
 
     // Analyze the content and add words to the trie
-    char* word = strtok(buffer, " \t\n\r.,;:!?'\"()[]{}0123456789");
+    char* word = strtok(buffer, " \t\n\r.,;:!?'\"()[]{}_-0123456789");
     while (word != NULL) {
         // Clean the word and convert it to lowercase
         char* cleanWord = malloc(strlen(word) + 1);
